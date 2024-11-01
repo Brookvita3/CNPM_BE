@@ -7,11 +7,12 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   years: {
     type: Number,
-    min: [1, 'khong be hon 1'],
-    max: [4, 'khong lon hon 4'],
+    min: [1, 'invalid years'],
+    max: [4, 'invalid years'],
     required: true,
   },
   refreshToken: { type: String },
+  role: { type: String, enum: ['ADMIN', 'USER'], required: true },
 });
 
 // Hàm mã hóa mật khẩu trước khi lưu vào DB

@@ -17,8 +17,8 @@ class AuthUseCases {
     if (!isMatch) throw new Error('Invalid password');
 
     // Tạo JWT token
-    const accessToken = generateAccessToken({ id: user._id });
-    const refreshToken = generateRefreshToken({ id: user._id });
+    const accessToken = generateAccessToken(user._id, user.role);
+    const refreshToken = generateRefreshToken(user._id, user.role);
 
     // chua check cookie (can phai dang nhap sau khi thoat khoi trang)
     user.refreshToken = refreshToken;
@@ -30,16 +30,20 @@ class AuthUseCases {
     return { accessToken, refreshToken };
   }
 
-  async register(username, email, password, years) {
+  async addUser(username, email, password, years, role) {
     const existingUser = await UserRepository.findByEmail(email);
     if (existingUser) throw new Error('Email already in use');
 
-    const user = await UserRepository.create({
+    const user = {
       username,
       email,
       password,
       years,
-    });
+      role,
+    };
+
+    await UserRepository.create(user);
+
     return user;
   }
 
@@ -50,7 +54,7 @@ class AuthUseCases {
     const decode = jwt.verify(refreshToken, process.env.SECRET_KEY_REFRESH);
 
     // Tạo Access Token mới
-    const accessToken = generateAccessToken({ id: decode.id });
+    const accessToken = generateAccessToken(decode.id, decode.role);
     return accessToken;
   }
 }
