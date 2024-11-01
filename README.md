@@ -20,3 +20,7 @@ Các endpoint hiện có:
 - user
   - /getinfo: trả về thông tin user
   - /logout: log out
+
+# Document API
+
+- Sử dụng file document.yml, có thể xem bằng các extension hỗ trợ openAPI trên IDE hoặc copy file dán vào [đây](https://editor.swagger.io/)

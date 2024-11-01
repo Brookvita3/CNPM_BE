@@ -114,7 +114,7 @@ components:
           description: 'Mật khẩu của người dùng.'
 
   securitySchemes:
-    BearerAuth:
+    jwt:
       type: http
       scheme: bearer
       bearerFormat: JWT
