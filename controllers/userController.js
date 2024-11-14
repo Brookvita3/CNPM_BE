@@ -30,9 +30,7 @@ class userController {
     try {
       const { username, email, password, years, role } = req.body;
       await authUseCase.addUser(username, email, password, years, role);
-      res
-        .status(200)
-        .json({ message: 'User added successfully', username });
+      res.status(200).json({ message: 'User added successfully', username });
     } catch (error) {
       res.status(400).json({ message: error.message });
       next(error);

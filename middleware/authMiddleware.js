@@ -9,7 +9,8 @@ function authMiddleware(req, res, next) {
 
   try {
     const decoded = jwt.verify(token, process.env.SECRET_KEY_ACCESS);
-    req.user = { userId: decoded.id, role: decoded.role }; // Lưu thông tin user từ token vào req
+    req.user = checkRefreshToken(req);
+    // req.user = { userId: decoded.id, role: decoded.role }; // Lưu thông tin user từ token vào req
     next();
   } catch (err) {
     res.status(401).json({ message: 'Token is expired or not valid' });
@@ -31,6 +32,15 @@ function generateRefreshToken(userId, role) {
   return jwt.sign(payload, process.env.SECRET_KEY_REFRESH, {
     expiresIn: process.env.EXPIRE_REFRESH,
   });
+}
+
+// Hàm phụ trợ để checkrefreshToken
+function checkRefreshToken(req) {
+  const refreshToken = req.cookies.refreshToken;
+  if (!refreshToken) throw new Error('No refresh token, authorization denied');
+
+  const decoded = jwt.verify(refreshToken, process.env.SECRET_KEY_REFRESH);
+  return { userId: decoded.id, role: decoded.role };
 }
 
 module.exports = { authMiddleware, generateAccessToken, generateRefreshToken };

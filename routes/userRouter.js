@@ -8,12 +8,14 @@ const userController = require('../controllers/userController');
 // kiem tra dang nhap
 route.use(authMiddleware);
 
-// với user bình thường
+// với cả 2 loại người dùng (user và admin)
 route.route('/getinfo').get(userController.getinfo);
-route.route('/logout').get(userController.logout);
+
+// với user bình thường
+route.route('/user/logout').get(userController.logout);
 
 // với admin
 route.use(adminMiddleware);
-route.route('/add/user').post(userController.addUser);
+route.route('/admin/add/user').post(userController.addUser);
 
 module.exports = route;
