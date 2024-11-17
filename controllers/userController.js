@@ -71,6 +71,21 @@ class userController {
       .status(200)
       .json({ message: 'Logout successfully' });
   }
+
+  async changePassword(req, res, next) {
+    try {
+      const { oldPassword, newPassword } = req.body;
+      await userUseCase.changePassword(
+        req.user.userId,
+        oldPassword,
+        newPassword,
+      );
+      res.status(200).json({ message: 'Password changed successfully' });
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+      next(error);
+    }
+  }
 }
 
 module.exports = new userController();

@@ -10,9 +10,10 @@ route.use(authMiddleware);
 
 // với cả 2 loại người dùng (user và admin)
 route.route('/getinfo').get(userController.getinfo);
+route.route('/changepassword').post(userController.changePassword);
+route.route('/logout').post(userController.logout);
 
 // với user bình thường
-route.route('/user/logout').get(userController.logout);
 
 // với admin
 route.use(adminMiddleware);
