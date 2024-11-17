@@ -14,11 +14,11 @@ class UserRepository {
     if (!mongoose.Types.ObjectId.isValid(userId)) {
       throw new Error('Invalid ID format');
     }
-    return await User.findById(userId).lean();
+    return await User.findById(userId);
   }
 
   async findByRefreshToken(refreshToken) {
-    return await User.findOne({ refreshToken }).lean();
+    return await User.findOne({ refreshToken });
   }
 }
 
