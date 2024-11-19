@@ -16,4 +16,5 @@ route.route('/logout').get(userController.logout);
 route.use(adminMiddleware);
 route.route('/add/user').post(userController.addUser);
 
+
 module.exports = route;
