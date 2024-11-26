@@ -31,32 +31,7 @@ html(lang="en")
                 //         h2 Cài đặt trang in
                 div.content
                     div.cards
-                        div.content-2
-                            //- div.print_setting
-                            //-     div.title
-                            //-         h2 REPORT.PDF
-                            //-     div.page-preview
-                            //-         h2 REPORT.PDF
-                            //-         if pdfUrl
-                            //-             canvas#pdf-render
-                            //-             div#controls
-                            //-             button#prev-page Previous
-                            //-             span#page-info
-                            //-                 | Page 
-                            //-                 span#page-num 
-                            //-                 | of 
-                            //-                 span#page-count
-                            //-             button#next-page Next
-                            //-             script.
-                            //-             const pdfUrl = "#{pdfUrl}";
-                            //-     div.page_control
-                            //-         button(id = "prev-page") prev
-                            //-         span#page-info 
-                            //-             | Page 
-                            //-             span#page-num 
-                            //-             | of 
-                            //-             span#page-count
-                            //-         button#next-page Next        
+                        div.content-2     
                             div.setting-selection
                                 div.title
                                     h2 Setting
@@ -70,8 +45,9 @@ html(lang="en")
                                     div.printer-dropdown
                                         img(src="/image/edit.png" alt="Printer Icon" class="icon")
                                         select
-                                            option Location
-                                            option Status
+                                            -var i = 0;
+                                            each item in printer
+                                                option #{item.Name}
                                 div.page-section
                                     h3 Copies:
                                     input(type="text" placeholder="Nhập số bản cần in")
@@ -80,11 +56,13 @@ html(lang="en")
                                     div.setting-option
                                         img(src="/image/edit.png" alt="Printer Icon" class="icon")
                                         select
+                                            option In 1 mặt
                                             option In 2 mặt
                                     div.setting-option
                                         img(src="/image/edit.png" alt="Printer Icon" class="icon")
                                         select
-                                            option Loại giấy
+                                            each item in pageSize 
+                                                option #{item.pageSize}
                                     div.setting-option
                                         img(src="/image/edit.png" alt="Printer Icon" class="icon")
                                         select
@@ -163,3 +141,4 @@ html(lang="en")
 //-         script.
 //-           const pdfUrl = "#{pdfUrl}";
 //-     script(src="/js/displayPdf.js")
+

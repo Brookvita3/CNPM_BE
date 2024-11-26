@@ -7,7 +7,8 @@ const cookieParser = require('cookie-parser');
 const multer = require("multer");
 // Load biến môi trường
 require('dotenv').config({ path: './.env' });
-const path = require('path')
+const path = require('path');
+const { default: mongoose } = require('mongoose');
 const app = express();
 const PORT = process.env.PORT || 8080;
 // Cấu hình multer để lưu file upload
@@ -39,12 +40,20 @@ app.use(logger);
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.set('view cache', false);
+
 
 moongoose
   .connect(database_link)
   .then(() => console.log('Database connected'))
   .catch((err) => console.log(err));
+const Printer = mongoose.model('pinter',{
+  id: Number,
+  name: String,
+  location: String,
+  status: String
 
+}) 
 route(app);
 
 app.use(errorHandler);

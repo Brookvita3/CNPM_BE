@@ -19,4 +19,5 @@ const storage = multer.diskStorage({
 
 router.get("/",printController.index)
 router.post("/", printController.uploadPdf, printController.handleUpload);
+router.post("/addHistory",printController.addHistory)
 module.exports =router                         
