@@ -4,13 +4,14 @@ const route = require('./routes');
 const { logger } = require('./middleware/logEvents');
 const errorHandler = require('./middleware/errorHandler');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 
 // Load biến môi trường
 require('dotenv').config({ path: './.env' });
 
 const app = express();
 const PORT = process.env.PORT || 8080;
-
+app.use(cors());
 // Kết nối CSDL
 const database_link = process.env.MONGODB_LINK;
 console.log(database_link);
