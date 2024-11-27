@@ -30,23 +30,6 @@ class AuthUseCases {
     return { accessToken, refreshToken };
   }
 
-  async addUser(username, email, password, years, role) {
-    const existingUser = await UserRepository.findByEmail(email);
-    if (existingUser) throw new Error('Email already in use');
-
-    const user = {
-      username,
-      email,
-      password,
-      years,
-      role,
-    };
-
-    await UserRepository.create(user);
-
-    return user;
-  }
-
   async refreshToken(refreshToken) {
     const existingUser = await UserRepository.findByRefreshToken(refreshToken);
     if (!existingUser) throw new Error('refreshToken invalid');

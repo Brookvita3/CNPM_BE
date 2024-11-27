@@ -1,22 +1,35 @@
-const PrinterRepository = require('../repositories/printerRepository'); 
+const UserRepository = require('../repositories/userRepository');
 
-class PrinterUseCase {
-  async addPrinter(name, location, status) {
-    const existingPrinter = await PrinterRepository.findByName(name);
-    if (existingPrinter) {
-      throw new Error('Printer already exists');
+class AdminUseCase {
+
+  async deleteUser(email) {
+    const user = await UserRepository.findByEmail(email);
+    if (!user) {
+      throw new Error('User not found');
     }
-    const newPrinter = await PrinterRepository.create({ name, location, status });
-    return newPrinter;
+    
+    const deleteUser = await UserRepository.deleteByEmail(email)
+    return deleteUser;
   }
-  async deletePrinterByName(name) {
-    const printer = await PrinterRepository.findByName(name);
-    if (!printer) {
-      throw new Error('Printer not found');
-    }
-    const result = await PrinterRepository.deleteByName(name);
-    return result;
+
+  async addUser(username, email, password, years, role) {
+    const existingUser = await UserRepository.findByEmail(email);
+    if (existingUser) throw new Error('Email already in use');
+
+    const user = {
+      username,
+      email,
+      password,
+      years,
+      role,
+    };
+
+    await UserRepository.create(user);
+
+    return user;
   }
+
+
 }
 
-module.exports = new PrinterUseCase();
+module.exports = new AdminUseCase();

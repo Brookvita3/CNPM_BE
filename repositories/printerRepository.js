@@ -13,6 +13,6 @@ class PrinterRepository {
     async deleteByName(name) {
       return await Printer.deleteOne({name});
     }
-  }
+}
   
-  module.exports = new PrinterRepository();
+module.exports = new PrinterRepository();
