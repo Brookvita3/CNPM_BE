@@ -6,6 +6,11 @@ const printHistorySchema = new mongoose.Schema({
     Location: String,
     pages: String,
     copies: Number,
+    sides: String,
+    paperType: String,
+    collation: String,
+    orientation: String,
+    paperSize: String,
     datePrinting: String,
     Status: String,
 });

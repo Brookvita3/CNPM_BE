@@ -5,7 +5,7 @@ module.exports.index = async(req,res) => {
   const printers = await Printer.find({status: 'On'});
   const page = await PageSize.find();
   const uploadStatus = "Chưa tải tệp:";
-    res.render("printer/print_setting_final",{ 
+    res.render("printer/print_setting2",{ 
       printer: printers,
       pageSize: page,
       name: " ",
@@ -33,7 +33,7 @@ exports.renderHome = async(req, res) => {
   const printers = await Printer.find({status: 'On'});
   const page = await PageSize.find();
   const uploadStatus = "Chưa tải tệp:";
-  res.render("printer/print_setting_final", { 
+  res.render("printer/print_setting2", { 
     pdfUrl: null,
     printer: printers,
     pageSize: page,
@@ -47,7 +47,7 @@ exports.handleUpload = async(req, res) => {
   const page = await PageSize.find();
   if (!req.file) {
     const uploadStatus = "Chưa tải tệp:";
-    res.render("printer/print_setting_final",{
+    res.render("printer/print_setting2",{
       printer: printers,
       pageSize: page,
       name: " ",
@@ -57,7 +57,7 @@ exports.handleUpload = async(req, res) => {
   const pdfUrl = `/uploads/${req.file.filename}`;
   const filename = req.file.filename;
   const uploadStatus = "Đã tải tệp:";
-  res.render("printer/print_setting_final", { 
+  res.render("printer/print_setting2", { 
     pdfUrl,
     printer: printers,
     pageSize: page,
@@ -85,6 +85,11 @@ exports.addHistory = async(req, res) => {
     Location: printer.Location,
     pages: req.body.pages,
     copies: parseInt(req.body.copies),
+    sides: req.body.duplex,
+    paperType: req.body.paperType,
+    collation: req.body.collation,
+    orientation: req.body.orientation,
+    paperSize: req.body.paperSize,
     datePrinting: formattedToday,
     Status: "Đang xử lí",
   })
