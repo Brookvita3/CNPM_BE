@@ -20,6 +20,11 @@ class UserRepository {
   async findByRefreshToken(refreshToken) {
     return await User.findOne({ refreshToken });
   }
+
+  async deleteByEmail(email) {
+    await User.deleteOne({ email })
+  }
 }
+
 
 module.exports = new UserRepository();
