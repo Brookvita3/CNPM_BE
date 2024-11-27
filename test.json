@@ -1,0 +1,27 @@
+[
+    {
+      "username": "user12345",
+      "email": "user1@example.com",
+      "password": "hashedPassword123",
+      "years": 2,
+      "refreshToken": "someRefreshToken",
+      "role": "USER"
+    },
+    {
+      "username": "adminuser",
+      "email": "admin@example.com",
+      "password": "hashedPasswordAdmin",
+      "years": 4,
+      "refreshToken": "adminRefreshToken",
+      "role": "ADMIN"
+    },
+    {
+      "username": "testuser",
+      "email": "testuser@example.com",
+      "password": "hashedPasswordTest",
+      "years": 1,
+      "refreshToken": null,
+      "role": "USER"
+    }
+  ]
+  

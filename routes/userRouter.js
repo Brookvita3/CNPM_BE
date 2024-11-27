@@ -17,5 +17,6 @@ route.route('/user/logout').get(userController.logout);
 // với admin
 route.use(adminMiddleware);
 route.route('/admin/add/user').post(userController.addUser);
+route.route('/admin/delete/user/:email').delete(userController.deleteUser);
 
 module.exports = route;

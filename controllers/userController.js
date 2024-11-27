@@ -29,7 +29,15 @@ class userController {
   async addUser(req, res, next) {
     try {
       const { username, email, password, years, role } = req.body;
-      await authUseCase.addUser(username, email, password, years, role);
+      const adminEmail = req.user.email; // Email admin từ middleware
+      await userUseCase.addUser(
+        adminEmail,
+        username,
+        email,
+        password,
+        years,
+        role,
+      );
       res.status(200).json({ message: 'User added successfully', username });
     } catch (error) {
       res.status(400).json({ message: error.message });
@@ -70,6 +78,19 @@ class userController {
       .clearCookie('refreshToken')
       .status(200)
       .json({ message: 'Logout successfully' });
+  }
+
+  //delete user
+  async deleteUser(req, res, next) {
+    try {
+      const adminEmail = req.user.email; // Email admin từ middleware
+      const userEmail = req.params.email; // Email của user từ URL
+      await userUseCase.deleteUser(adminEmail, userEmail);
+      res.status(200).json({ message: 'User deleted successfully' });
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+      next(error);
+    }
   }
 }
 
