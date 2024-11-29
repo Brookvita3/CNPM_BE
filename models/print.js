@@ -1,9 +1,16 @@
 const mongoose = require('mongoose');
 const printerSchema = new mongoose.Schema({
-    id: Number,
-    Name: String,
-    Location: String,
-    status: String,
-    remaining_page: Number  
+    name: String,
+    location: String,
+    status: {
+        type: String, 
+        required: true,
+        default: "disable",
+    },
+    remaining_page: {
+        type: Number,
+        required: true,
+        default: 100,
+    }   
 });
-module.exports = mongoose.model('printerass', printerSchema,'printer');
+module.exports = mongoose.model('printerass', printerSchema,'printers');

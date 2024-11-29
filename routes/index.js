@@ -7,7 +7,7 @@ const { authMiddleware } = require('../middleware/authMiddleware');
 function route(app) {
   app.use('/login', authRoter);
   app.use('/user', authMiddleware, userRouter);
-  app.use('/admin', authMiddleware, adminRouter);
+  app.use('/admin', /*authMiddleware,*/ adminRouter);
   app.use('/user', userRouter);
   app.use('/print', printRouter);
 }
