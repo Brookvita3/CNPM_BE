@@ -47,13 +47,7 @@ moongoose
   .connect(database_link)
   .then(() => console.log('Database connected'))
   .catch((err) => console.log(err));
-const Printer = mongoose.model('pinter',{
-  id: Number,
-  name: String,
-  location: String,
-  status: String
-
-}) 
+  
 route(app);
 
 app.use(errorHandler);

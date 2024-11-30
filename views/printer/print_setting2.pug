@@ -15,10 +15,6 @@ html(lang="en")
       rel="stylesheet"
       )
     script(src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js")
-    script(
-      defer="" 
-      src="/js/print_setting.js"
-      )
     title Cài đặt In
   body
     .banner
@@ -76,34 +72,52 @@ html(lang="en")
                         alt="Printer Icon" 
                         src="/image/edit.png"
                         )
-                      select(name="printer")
+                      select(name="printer" required)
                         option(
                           selected="" 
                           value="default"
                           ) Chọn máy in (Mặc định)
                         each item in printer
                           option(value=item.id) #{item.Name} #{item.Location}
-                        
+                  .page-section
+                    h3 Số dư:
+                    input(type='number' id='balance'  placeholder = balance  name='balance' value = balance readonly )      
                   .page-section
                     h3 Tên tệp: 
-                    input(type='text' placeholder = name name='filename' value = name )
+                    input(type='text' id='filename' placeholder = name name='filename' value = name readonly required )
                     h3 Pages: 
-                    input(type='text' placeholder = 'nhập theo định dang <trang đầu - trang cuối>' name='pages' ,required=isRequired )
-                    h3 Copies:
-                    input(
-                      value="1" 
-                      name="copies" 
-                      placeholder="Nhập số bản cần in" 
-                      type="number"
-                      )
-                  .settings-section
-                    h3 Cài đặt:
+                    input(type='text' id='pages' placeholder = 'nhập theo định dang <trang đầu - trang cuối>' name='pages' required)
+                    h3 In chẵn lẻ:
                     .setting-option
                       img.icon(
                         alt="Printer Icon" 
                         src="/image/edit.png"
                         )
-                      select(name="duplex")
+                      select(name="oddOrEven" id= "oddOrEven" )
+                        option(
+                          selected="" 
+                          value="default"
+                          ) Chọn kiểu in (Mặc định)
+                        option(value="1") In trang chẵn
+                        option(value="2") In trang lẻ
+                    h3 Copies:
+                    input(
+                      id = "copies"
+                      value="1" 
+                      name="copies" 
+                      placeholder="Nhập số bản cần in" 
+                      type="number"
+                      required
+                      )
+                  .settings-section
+                    h3 Cài đặt:
+
+                    .setting-option
+                      img.icon(
+                        alt="Printer Icon" 
+                        src="/image/edit.png"
+                        )
+                      select(name="duplex" id="duplex" required)
                         option(
                           selected="" 
                           value="default"
@@ -115,7 +129,7 @@ html(lang="en")
                         alt="Printer Icon" 
                         src="/image/edit.png"
                         )
-                      select(name="paperType")
+                      select(name="paperType" id="paperType" required)
                         option(
                           selected="" 
                           value="default"
@@ -128,7 +142,7 @@ html(lang="en")
                         alt="Printer Icon" 
                         src="/image/edit.png"
                         )
-                      select(name="collation")
+                      select(name="collation" required)
                         option(
                           selected="" 
                           value="default"
@@ -140,7 +154,7 @@ html(lang="en")
                         alt="Printer Icon" 
                         src="/image/edit.png"
                         )
-                      select(name="orientation")
+                      select(id='orientation-select' name="orientation" required)
                         option(
                           selected="" 
                           value="default"
@@ -152,15 +166,18 @@ html(lang="en")
                         alt="Printer Icon" 
                         src="/image/edit.png"
                         )
-                      select(name="paperSize")
+                      select(name="paperSize" required)
                         option(
                           selected="" 
                           value="default"
                           ) Chọn kích cỡ giấy (Mặc định)
                         option(value="letter") Letter
                         option(value="legal") Legal
+                    .page-section
+                      h3 Tổng tiền phải trả:
+                      input(type='number' id='totalMoney' name='totalMoney' readonly  )
                     .submit-section
-                      button#submitButton(type="submit") In
+                      button(id= "submitButton") In
               div(class="print_setting")
                 .title
                   h2 REPORT.PDF
@@ -195,3 +212,7 @@ html(lang="en")
         p Điện thoại: +84 123 456 789
       .footer-copyright
         p © Bản quyền thuộc Trường Đại học Bách khoa - ĐHQG-HCM
+          script(
+        src="/js/print_setting.js"
+        )
+      script(src="/js/handlePrinting.js") 
