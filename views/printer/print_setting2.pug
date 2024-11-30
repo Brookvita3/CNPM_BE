@@ -14,6 +14,10 @@ html(lang="en")
       href="/css/print_setting2.css" 
       rel="stylesheet"
       )
+    link(
+      rel="stylesheet" 
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      )
     script(src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js")
     title Cài đặt In
   body
@@ -25,11 +29,9 @@ html(lang="en")
           )
         ul
           li
-            a(href="index.html") Trang chủ
+            a(href="/") Trang chủ
           li
-            a(href="index.html") Dịch vụ
-          li
-            a(href="admin_manage_printer.html") Các máy in
+            a(href="/") Dịch vụ
           li
             a(href="#") Liên hệ
           li
@@ -72,7 +74,7 @@ html(lang="en")
                         alt="Printer Icon" 
                         src="/image/edit.png"
                         )
-                      select(name="printer" required)
+                      select(name="printer" id= "printer" required)
                         option(
                           selected="" 
                           value="default"
@@ -142,7 +144,7 @@ html(lang="en")
                         alt="Printer Icon" 
                         src="/image/edit.png"
                         )
-                      select(name="collation" required)
+                      select(name="collation" id="collation" required)
                         option(
                           selected="" 
                           value="default"
@@ -166,7 +168,7 @@ html(lang="en")
                         alt="Printer Icon" 
                         src="/image/edit.png"
                         )
-                      select(name="paperSize" required)
+                      select(name="paperSize" id="paperSize" required)
                         option(
                           selected="" 
                           value="default"
@@ -180,9 +182,8 @@ html(lang="en")
                       button(id= "submitButton") In
               div(class="print_setting")
                 .title
-                  h2 REPORT.PDF
+                  h2 #{name}
                 .page-preview
-                  h2 REPORT.PDF
                   if pdfUrl
                     canvas#pdf-render
                       script. 
@@ -216,3 +217,29 @@ html(lang="en")
         src="/js/print_setting.js"
         )
       script(src="/js/handlePrinting.js") 
+    // // Script pop up Login
+    script.
+      function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+        return null;
+      }
+
+      // Kiểm tra trạng thái cookie và xử lý sự kiện
+      document.getElementById("account").addEventListener("click", function () {
+        const refreshToken = getCookie("refreshToken"); // Lấy cookie "refreshToken"
+
+        if (refreshToken) {
+          // Nếu cookie tồn tại, chuyển hướng đến /user/info
+          window.location.href = "/user/info";
+        } else {
+          // Nếu không có cookie, hiển thị popup đăng nhập
+          document.querySelector(".popup").style.display = "flex";
+        }
+      });
+
+      // Đóng popup khi người dùng bấm nút "close"
+      document.querySelector(".close")?.addEventListener("click", function () {
+        document.querySelector(".popup").style.display = "none";
+      });
