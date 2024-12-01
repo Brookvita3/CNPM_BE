@@ -1,4 +1,4 @@
-function getPageCount(inputString, oddOrEven = "default") {
+function getPageCount(inputString, oddOrEven = "default", maxPage) {
     // Định nghĩa các biểu thức chính quy cho hai định dạng
     const rangeFormat = /^\d+\s*-\s*\d+$/; // Phù hợp với "<num1> - <num2>"
     const listFormat = /^\d+(,\s*\d+)*$/;  // Phù hợp với "<num1>,<num2>,...,<numN>"
@@ -7,6 +7,10 @@ function getPageCount(inputString, oddOrEven = "default") {
     if (rangeFormat.test(inputString)) {
         const [num1, num2] = inputString.split('-').map(num => parseInt(num.trim(), 10));
         if (num2 >= num1) {
+            if(num2 > maxPage){
+                alert("Trang in khong duoc vuot qua so trang toi da cua file");
+                return 0;
+            }
             // Tính số trang dựa trên khoảng và lọc theo oddOrEven
             const pages = getPagesToPrint(num1, num2, oddOrEven);
             return pages.length; // Trả về số lượng trang
@@ -18,7 +22,12 @@ function getPageCount(inputString, oddOrEven = "default") {
     if (listFormat.test(inputString)) {
         const pages = inputString.split(',').map(num => parseInt(num.trim(), 10));
         // Lọc trang theo oddOrEven
+        let isValid = true;
         const filteredPages = pages.filter(page => {
+            if(page> maxPage) {
+                alert("Trang in khong duoc vuot qua so trang toi da cua file");
+                isValid = false;      
+            }
             if (oddOrEven === "default") {
                 return true; // Bao gồm tất cả các trang
             }
@@ -30,6 +39,7 @@ function getPageCount(inputString, oddOrEven = "default") {
             }
             return false;
         });
+        if(!isValid) return 0;
         return filteredPages.length; // Trả về số lượng trang lọc
     }
 
@@ -66,12 +76,12 @@ function getPagesToPrint(num1, num2, oddOrEven = "default") {
     return pages;
 }
 
-
+const numPage = document.querySelector("#page-count");
 const printSubmit = document.querySelector("#printForm");
 const printButton = document.querySelector("#submitButton");
 printButton.addEventListener('click', async function (event) {
     event.preventDefault();
-
+    const maxPage = parseInt(numPage.innerHTML);
     // const formData = new FormData(this);
     let url = new URL(window.location.href);
     let printer = document.getElementById("printer");
@@ -85,14 +95,6 @@ printButton.addEventListener('click', async function (event) {
     let orientation = document.getElementById("orientation-select");
     let paperSize = document.getElementById("paperSize");
     let balance = document.getElementById("balance");
-    console.log(filename.value === " ");
-    console.log(pages.value === "");
-    console.log(oddOrEven.value);
-    console.log(copies.value === "");
-    console.log(duplex.value);
-    console.log(paperType.value);
-    console.log(collation.value);
-    console.log(orientation.value);
     let annouceStr = "";
     if (filename.value === " ") annouceStr += "tải tệp,";
     if (printer.value === "default") annouceStr += " chọn máy in,";
@@ -104,8 +106,8 @@ printButton.addEventListener('click', async function (event) {
     if (orientation.value === "default") annouceStr += " chọn chiều của trang in,";
     if (paperSize.value === "default") annouceStr += " chọn kích cỡ văn bản,"
     if (annouceStr !== "") return alert(`Vui lòng ${annouceStr}`);
-    if (!getPageCount(pages.value, oddOrEven.value)) return alert("Dau vao pages sai dinh dang");
-    console.log(getPageCount(pages.value, oddOrEven.value));
+    if (!getPageCount(pages.value, oddOrEven.value,maxPage)) return alert("Dau vao pages sai dinh dang");
+    console.log(getPageCount(pages.value, oddOrEven.value,maxPage));
     let totalMoney = 0;
     let pageCount = 0;
     if (duplex.value === "2-sided") pageCount = Math.ceil(getPageCount(pages.value, oddOrEven.value) / 2)

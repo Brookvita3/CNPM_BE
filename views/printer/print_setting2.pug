@@ -105,7 +105,9 @@ html(lang="en")
                     h3 Copies:
                     input(
                       id = "copies"
+                      min="1"
                       value="1" 
+                      oninput="validity.valid||(value='');"
                       name="copies" 
                       placeholder="Nhập số bản cần in" 
                       type="number"
