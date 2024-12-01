@@ -64,6 +64,21 @@ module.exports.fetchInfo = async (req, res) => {
     return user;
 }
 
+
+module.exports.checkRole = async (req, res) => {
+    const refreshToken = req.cookies.refreshToken;
+
+    if (!refreshToken)
+        return res.status(401).json({ message: 'You are logged out' });
+
+    const decoded = jwt.verify(refreshToken, process.env.SECRET_KEY_REFRESH);
+    const role = decoded.role;
+    console.log(role);
+    res.status(200).json({ role: role });
+}
+
+
+
 // for render
 module.exports.printHistory = async (req, res) => {
     res.render("user/print-history");

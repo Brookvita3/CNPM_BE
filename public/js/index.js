@@ -50,9 +50,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
 
                 console.log('Login successful');
-                const { refreshToken } = await response.json()
+                const { refreshToken, role } = await response.json()
                 // Set the refresh token in a cookie
                 document.cookie = `refreshToken=${refreshToken}; path=/; secure; HttpOnly`;
+
+                if (role === 'ADMIN') {
+                    window.location.href = '/admin/printers/index';
+                }
 
                 // Close the popup after successful login
                 document.querySelector(".popup").style.display = "none";

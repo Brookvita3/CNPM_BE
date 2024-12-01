@@ -30,7 +30,7 @@ module.exports.loginPage = async (req, res) => {
                 httpOnly: true, // Chỉ có thể truy cập từ server
                 maxAge: ms(process.env.EXPIRE_REFRESH), // Thời gian sống của cookie
             })
-            .json({ refreshToken: refreshToken });
+            .json({ refreshToken: refreshToken, role: user.role });
 
     } catch (error) {
         const message =
