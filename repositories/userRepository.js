@@ -22,7 +22,7 @@ class UserRepository {
   }
 
   async deleteByEmail(email) {
-    await User.deleteOne({email})
+    await User.deleteOne({ email })
   }
 }
 
