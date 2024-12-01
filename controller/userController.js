@@ -1,4 +1,5 @@
 const UserRepository = require('../repositories/userRepository');
+const printHistoryRepository = require('../repositories/printHistoryRepository');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { model } = require('mongoose');
@@ -81,8 +82,21 @@ module.exports.checkRole = async (req, res) => {
 
 // for render
 module.exports.printHistory = async (req, res) => {
-    res.render("user/print-history");
+    const refreshToken = req.cookies.refreshToken;
+
+    if (!refreshToken)
+        return res.status(401).json({ message: 'You are logged out' });
+
+    const decoded = jwt.verify(refreshToken, process.env.SECRET_KEY_REFRESH);
+    const id = decoded.id;
+
+    const user = await UserRepository.findById(id);
+    const email = user.email;
+
+    const history = await printHistoryRepository.findByEmailUser(email);
+    res.render("user/print-history", { historys: history });
 }
+
 
 module.exports.buyPage = async (req, res) => {
     res.render("user/buy_page");

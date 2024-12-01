@@ -1,4 +1,5 @@
 const PrintHistory = require('../models/printHistory');
+const { ObjectId } = require('mongodb');
 
 class PrintHistoryRepository {
     async findByName(name) {
@@ -15,6 +16,10 @@ class PrintHistoryRepository {
     }
     async findHistoryByName(printerName) {
         return await PrintHistory.find({ printerName: printerName });
+    }
+    async findByEmailUser(email) {
+
+        return await PrintHistory.find({ email: email });
     }
 }
 

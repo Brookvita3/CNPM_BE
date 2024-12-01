@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
       message: 'The field must contain only numbers.'
     }
   },
-  balance: { type: Number, require: true }
+  balance: { type: Number, require: true, default: 100 }
 });
 
 // Hàm mã hóa mật khẩu trước khi lưu vào DB

@@ -23,6 +23,7 @@ module.exports.index = async (req, res) => {
 }
 const path = require("path");
 const multer = require("multer");
+const printHistoryRepository = require('../repositories/printHistoryRepository');
 
 // Multer storage configuration
 const storage = multer.diskStorage({

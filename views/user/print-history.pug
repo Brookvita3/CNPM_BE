@@ -41,11 +41,9 @@ html(lang="en")
           li
             a(href="/") DỊCH VỤ
           li
-            a(href="/") CÁC MÁY IN
-          li
             a(href="/") LIÊN HỆ
           li
-            a(href="/") Home
+            a(href="/") HOME
           li#account
             a(href="/user/info")
               i.bx.bx-user
@@ -53,201 +51,20 @@ html(lang="en")
         .inner-main
           .col-12.inner-title Lịch sử in ấn
           .inner-content
+          each history in historys
             .col-2.inner-print-time
               .inner-printId
                 i.fa-solid.fa-id-card-clip
-                | 2131232
+                | #{history.fileName}
               .inner-time
                 i.fa-regular.fa-clock
-                | 20/10/2024
+                | #{history.datePrinting}
               .print
                 i.fa-solid.fa-print
-                | Máy in ABC
+                | #{history.totalMoney}
               .print-place
                 i.fa-solid.fa-map-pin
-                | H1
-            .col-2.inner-print-time
-              .inner-printId
-                i.fa-solid.fa-id-card-clip
-                | 2131232
-              .inner-time
-                i.fa-regular.fa-clock
-                | 20/10/2024
-              .print
-                i.fa-solid.fa-print
-                | Máy in ABC
-              .print-place
-                i.fa-solid.fa-map-pin
-                | H1
-            .col-2.inner-print-time
-              .inner-printId
-                i.fa-solid.fa-id-card-clip
-                | 2131232
-              .inner-time
-                i.fa-regular.fa-clock
-                | 20/10/2024
-              .print
-                i.fa-solid.fa-print
-                | Máy in ABC
-              .print-place
-                i.fa-solid.fa-map-pin
-                | H1
-            .col-2.inner-print-time
-              .inner-printId
-                i.fa-solid.fa-id-card-clip
-                | 2131232
-              .inner-time
-                i.fa-regular.fa-clock
-                | 20/10/2024
-              .print
-                i.fa-solid.fa-print
-                | Máy in ABC
-              .print-place
-                i.fa-solid.fa-map-pin
-                | H1
-            .col-2.inner-print-time
-              .inner-printId
-                i.fa-solid.fa-id-card-clip
-                | 2131232
-              .inner-time
-                i.fa-regular.fa-clock
-                | 20/10/2024
-              .print
-                i.fa-solid.fa-print
-                | Máy in ABC
-              .print-place
-                i.fa-solid.fa-map-pin
-                | H1
-            .col-2.inner-print-time
-              .inner-printId
-                i.fa-solid.fa-id-card-clip
-                | 2131232
-              .inner-time
-                i.fa-regular.fa-clock
-                | 20/10/2024
-              .print
-                i.fa-solid.fa-print
-                | Máy in ABC
-              .print-place
-                i.fa-solid.fa-map-pin
-                | H1
-            .col-2.inner-print-time
-              .inner-printId
-                i.fa-solid.fa-id-card-clip
-                | 2131232
-              .inner-time
-                i.fa-regular.fa-clock
-                | 20/10/2024
-              .print
-                i.fa-solid.fa-print
-                | Máy in ABC
-              .print-place
-                i.fa-solid.fa-map-pin
-                | H1
-            .col-2.inner-print-time
-              .inner-printId
-                i.fa-solid.fa-id-card-clip
-                | 2131232
-              .inner-time
-                i.fa-regular.fa-clock
-                | 20/10/2024
-              .print
-                i.fa-solid.fa-print
-                | Máy in ABC
-              .print-place
-                i.fa-solid.fa-map-pin
-                | H1
-            .col-2.inner-print-time
-              .inner-printId
-                i.fa-solid.fa-id-card-clip
-                | 2131232
-              .inner-time
-                i.fa-regular.fa-clock
-                | 20/10/2024
-              .print
-                i.fa-solid.fa-print
-                | Máy in ABC
-              .print-place
-                i.fa-solid.fa-map-pin
-                | H1
-            .col-2.inner-print-time
-              .inner-printId
-                i.fa-solid.fa-id-card-clip
-                | 2131232
-              .inner-time
-                i.fa-regular.fa-clock
-                | 20/10/2024
-              .print
-                i.fa-solid.fa-print
-                | Máy in ABC
-              .print-place
-                i.fa-solid.fa-map-pin
-                | H1
-            .col-2.inner-print-time
-              .inner-printId
-                i.fa-solid.fa-id-card-clip
-                | 2131232
-              .inner-time
-                i.fa-regular.fa-clock
-                | 20/10/2024
-              .print
-                i.fa-solid.fa-print
-                | Máy in ABC
-              .print-place
-                i.fa-solid.fa-map-pin
-                | H1
-            .col-2.inner-print-time
-              .inner-printId
-                i.fa-solid.fa-id-card-clip
-                | 2131232
-              .inner-time
-                i.fa-regular.fa-clock
-                | 20/10/2024
-              .print
-                i.fa-solid.fa-print
-                | Máy in ABC
-              .print-place
-                i.fa-solid.fa-map-pin
-                | H1
-            .col-2.inner-print-time
-              .inner-printId
-                i.fa-solid.fa-id-card-clip
-                | 2131232
-              .inner-time
-                i.fa-regular.fa-clock
-                | 20/10/2024
-              .print
-                i.fa-solid.fa-print
-                | Máy in ABC
-              .print-place
-                i.fa-solid.fa-map-pin
-                | H1
-            .col-2.inner-print-time
-              .inner-printId
-                i.fa-solid.fa-id-card-clip
-                | 2131232
-              .inner-time
-                i.fa-regular.fa-clock
-                | 20/10/2024
-              .print
-                i.fa-solid.fa-print
-                | Máy in ABC
-              .print-place
-                i.fa-solid.fa-map-pin
-                | H1
-            .col-2.inner-print-time
-              .inner-printId
-                i.fa-solid.fa-id-card-clip
-                | 2131232
-              .inner-time
-                i.fa-regular.fa-clock
-                | 20/10/2024
-              .print
-                i.fa-solid.fa-print
-                | Máy in ABC
-              .print-place
-                i.fa-solid.fa-map-pin
-                | H1
+                | #{history.Location}
       footer.footer
         .footer-logo
           img(
@@ -273,5 +90,4 @@ html(lang="en")
         integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" 
         src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
         )
-      script(src="/css/print-history.js")
       script(src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js")
