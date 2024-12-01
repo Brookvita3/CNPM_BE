@@ -99,11 +99,11 @@ document.querySelectorAll('.printerHistory-btn').forEach((button) => {
         const queryString = new URLSearchParams(data).toString();
         console.log(queryString);
         try {
-            const response = await fetch(`/admin/get/printer_history?${queryString}`, {
+            const response = await fetch(`/admin/get/printer_history_by_name/?${queryString}`, {
                 method: 'GET',
             });
             console.log(response)
-            window.location.href = `/admin/get/printer_history_by_name?printName=${printer_name}`;
+            window.location.href = `/admin/get/printer_history_by_name/?${queryString}`;
         } catch (error) {
             console.log(error);
             console.log(1);

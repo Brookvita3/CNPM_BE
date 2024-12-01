@@ -2,7 +2,7 @@ const PrintHistory = require('../models/printHistory');
 
 class PrintHistoryRepository {
     async findByName(name) {
-        return await PrintHistory.findOne({ name });
+        return await PrintHistory.find({ printerName: name });
     }
     async create(data) {
         return await PrintHistory.create(data);
@@ -14,7 +14,7 @@ class PrintHistoryRepository {
         return await PrintHistory.deleteOne({ name });
     }
     async findHistoryByName(printerName) {
-        return await PrintHistory.findOne({ printerName });
+        return await PrintHistory.find({ printerName: printerName });
     }
 }
 

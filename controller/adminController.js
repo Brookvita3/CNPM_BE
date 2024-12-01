@@ -119,16 +119,18 @@ module.exports.getindexPage = async (req, res) => {
 
 
 
-// [GET] admin/get/printer_history_by_name
+//[GET] admin/get/printer_history_by_name
 module.exports.getPrinterHistoryByName = async (req, res, next) => {
-    const printer_history = await printHistoryRepository.findByName(req.query.printerName);
-    console.log(printer_history);
-    if (!printer_history) {
-        throw new Error('Printer not found');
-    }
+
     try {
-        // const printerName = req.query.printerName;
+        const name = req.query.printerName;
+        console.log(name);
+        const printer_history = await printHistoryRepository.findHistoryByName(name);
         const printer = await printRepository.findAll();
+        console.log(printer_history);
+        if (!printer_history) {
+            throw new Error('Printer not found');
+        }
         res.render("admin/admin_manage_printer", {
             printer_history: printer_history,
             printers: printer,
