@@ -4,7 +4,7 @@ const print = require('../models/print');
 
 
 // [POST] admin/add/user
-module.exports.addUser = async (req, res) => {
+module.exports.addUser = async (req, res, next) => {
     try {
         const { username, email, password, years, role } = req.body;
 
@@ -18,9 +18,9 @@ module.exports.addUser = async (req, res) => {
             years,
             role,
         };
+        await userRepository.create(user);
+        res.status(200).json({ message: 'User added successfully', username });
 
-        await UserRepository.create(user);
-        res.render("admin/add_user");
         // res.status(200).json({ message: 'User added successfully', username });
     } catch (error) {
         res.status(400).json({ message: error.message });
@@ -62,7 +62,7 @@ module.exports.addPrinter = async (req, res, next) => {
 };
 
 
-module.exports.getAddPrinters = async (req, res) => {
+module.exports.addPrintersindex = async (req, res) => {
     try {
         res.render("admin/add_printers");
     } catch (error) {
@@ -77,6 +77,12 @@ module.exports.logout = (req, res, next) => {
         .status(200)
         .json({ message: 'Logout successfully' });
 };
+
+
+// for render
+module.exports.addUserindex = async (req, res) => {
+    res.render("admin/add_user");
+}
 
 
 // // [DELETE] admin/delete/printer

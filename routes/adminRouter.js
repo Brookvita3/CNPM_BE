@@ -4,9 +4,16 @@ const router = express.Router();
 
 const adminController = require('../controller/adminController.js');
 
-router.post('/add/users', adminController.addUser);
-router.get('/add_printers/index', adminMiddleware, adminController.getAddPrinters);
-router.post('/add/printer', adminController.addPrinter);
+
+
+
+//for render
+router.get('/add_users/index', adminMiddleware, adminController.addUserindex);
+router.get('/add_printers/index', adminMiddleware, adminController.addPrintersindex);
+
+
+router.post('/add/user', adminMiddleware, adminController.addUser);
+router.post('/add/printer', adminMiddleware, adminController.addPrinter);
 
 // router.route('/delete/printer').delete(adminController.deletePrinter);
 // router.route('/get/printers').get(adminController.getAllPrinters);
