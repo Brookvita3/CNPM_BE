@@ -1,4 +1,11 @@
 document.querySelectorAll('.status_option').forEach((dropdown) => {
+    let previousValue = dropdown.value;
+
+    // Save the current value before the user makes a change
+    dropdown.addEventListener('focus', (event) => {
+        previousValue = event.target.value; // Update the tracked value on focus
+    });
+
     dropdown.addEventListener('change', async (event) => {
         const printer_name = event.target.getAttribute('data-printer_name');
         const newStatus = event.target.value;
@@ -17,11 +24,13 @@ document.querySelectorAll('.status_option').forEach((dropdown) => {
             if (response.ok) {
                 alert('Cap nhat thanh cong')
             } else {
-                alert('Loi');
+                alert('Lỗi');
+                event.target.value = previousValue;
             }
         } catch (error) {
             console.error('Error:', error);
             alert('Lỗi: Không thể kết nối tới server.');
+            event.target.value = previousValue;
         }
     })
 });
@@ -94,7 +103,7 @@ document.querySelectorAll('.printerHistory-btn').forEach((button) => {
                 method: 'GET',
             });
             console.log(response)
-            window.location.href = `/admin/get/printer_history_by_name?printerName=${printer_name}`;
+            window.location.href = `/admin/get/printer_history_by_name?printName=${printer_name}`;
         } catch (error) {
             console.log(error);
             console.log(1);

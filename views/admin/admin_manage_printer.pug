@@ -15,6 +15,10 @@ html(lang="en")
       rel="stylesheet"
       )
     title Admin manage printers
+    link(
+      rel="stylesheet" 
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+    )
   body
     .banner
       .navbar
@@ -24,15 +28,13 @@ html(lang="en")
           )
         ul
           li
-            a(href="index.html") Home
+            a(href="/") TRANG CHỦ
           li
-            a(href="index.html") Service
+            a(href="/admin/printers/index") CÁC MÁY IN
           li
-            a(href="admin_manage_printer.html") All machines
+            a(href="/") LIÊN HỆ
           li
-            a(href="#") Contact
-          li
-            a(href="#") Home
+            a(href="/admin/setup") SETUP
           li#account
             a(href="#")
               i.bx.bx-user
@@ -52,7 +54,7 @@ html(lang="en")
                       th Trạng thái
                       th Ngày in
                       th Nơi thực hiện
-                  if printer_history.length > 0
+                  if printer_history
                     each history in printer_history
                       tr
                         td #{history.Status ? history.Status : 'Không có dữ liệu'}

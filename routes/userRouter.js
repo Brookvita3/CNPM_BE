@@ -7,6 +7,8 @@ const userMiddleware = require('../middlerware/userMiddleware');
 router.get('/info', userController.getInfo);
 router.post('/check/password', userController.checkPassword);
 router.get('/logout', userController.logout);
+router.get('/print/history', userMiddleware, userController.printHistory);
+router.get('/print/buy', userMiddleware, userController.buyPage);
 
 // for fetch
 router.get('/get/info', userController.fetchInfo);

@@ -1,6 +1,7 @@
 const UserRepository = require('../repositories/userRepository');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { model } = require('mongoose');
 require('dotenv').config('./.env');
 
 
@@ -61,4 +62,13 @@ module.exports.fetchInfo = async (req, res) => {
     if (!user) throw new Error('Cant find user');
 
     return user;
+}
+
+// for render
+module.exports.printHistory = async (req, res) => {
+    res.render("user/print-history");
+}
+
+module.exports.buyPage = async (req, res) => {
+    res.render("user/buy_page");
 }
