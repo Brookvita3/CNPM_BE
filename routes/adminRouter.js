@@ -19,7 +19,7 @@ router.post('/add/user', adminMiddleware, adminController.addUser);
 router.post('/add/printer', adminMiddleware, adminController.addPrinter);
 router.patch('/change/printer', adminMiddleware, adminController.changePrinter);
 
-// router.route('/delete/printer').delete(adminController.deletePrinter);
+router.route('/delete/printer').delete(adminController.deletePrinter);
 // router.route('/get/printers').get(adminController.getAllPrinters);
 // router.route('/get/printer_history').get(adminController.getPrinterHistory);
 

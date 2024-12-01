@@ -157,44 +157,25 @@ module.exports.getPrinterHistoryByName = async (req, res, next) => {
 
 
 
-// // [DELETE] admin/delete/printer
-// module.exports.deletePrinter = async (req, res) => {
-//     try {
-//         const { name } = req.body;
-//         if (!name) {
-//             return res.status(400).json({ message: 'Thiếu tên máy in' });
-//         }
-//         const result = await printerUseCase.deletePrinterByName(name);
-//         if (result.deletedCount > 0) {
-//             return res.status(200).json({ message: 'Máy in đã được xóa thành công' });
-//         } else {
-//             return res.status(404).json({ message: 'Không tìm thấy máy in để xóa' });
-//         }
-//     } catch (error) {
-//         console.error(error);
-//         res.status(500).json({ message: 'Lỗi server, không thể xóa máy in' });
-//     }
-// };
+// [DELETE] admin/delete/printer
+module.exports.deletePrinter = async (req, res) => {
+    try {
+        const { name } = req.body;
+        if (!name) {
+            return res.status(400).json({ message: 'Thiếu tên máy in' });
+        }
+        const result = await printRepository.deleteByName(name);
+        if (result.deletedCount > 0) {
+            return res.status(200).json({ message: 'Máy in đã được xóa thành công' });
+        } else {
+            return res.status(404).json({ message: 'Không tìm thấy máy in để xóa' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Lỗi server, không thể xóa máy in' });
+    }
+};
 
-
-// // [GET] admin/get/printer_history
-
-// module.exports.getPrinterHistory = async (req, res) => {
-//     try {
-//         console.log(req.query);
-//         const printerName = req.query.printerName;
-//         const printer = this.getAllPrinters()
-//         console.log(printerName);
-//         if (!printerName) {
-//             return res.status(400).json({ message: 'Thiếu tên máy in' });
-//         }
-//         const printerHistory = await printerUseCase.getPrinterHistory(printerName);
-//         console.log(printerHistory);
-//         res.redirect(`/admin/get/printer_history_by_name?printerName=${printerName}`);
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }
 
 
 
