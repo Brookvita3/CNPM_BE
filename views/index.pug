@@ -32,7 +32,7 @@ html(lang="en")
           li
             a(href="#") Home
           li#account
-            a(onclick="entryPoint()")
+            a()
               i.bx.bx-user
       .content
         h1 STUDENT SMART PRINTING SERVICE
@@ -40,8 +40,8 @@ html(lang="en")
           span.auto-type
         div
           button(
-            onclick="window.location.href='/print';" 
             type="button"
+            id="print-now-btn"
             )
             span.print
             | IN NGAY

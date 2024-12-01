@@ -3,7 +3,7 @@ const userRouter = require('./userRouter');
 const printRouter = require('./printRouter');
 const adminRouter = require('./adminRouter');
 const { authMiddleware } = require('../middlerware/authMiddleware');
-
+const adminMiddleware = require('../middlerware/adminMiddleware');
 
 module.exports = (app) => {
   app.use("/user", authMiddleware, userRouter);

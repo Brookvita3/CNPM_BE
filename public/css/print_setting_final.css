@@ -428,3 +428,30 @@ select {
     max-width: 400px;
     margin: 20px auto; /* Căn giữa */
 }
+.print_setting {
+    display: block;
+    width: 100%;
+    max-width: 800px; /* Kích thước tối đa mặc định */
+    margin: 0 auto;
+}
+
+.print_setting.landscape {
+    transform: rotate(-90deg);
+    background-color: #f0f0f0; /* Chỉ để kiểm tra */
+}
+
+.print_setting.portrait {
+    transform: none;
+    background-color: #ffffff; /* Chỉ để kiểm tra */
+}
+
+#pdf-renderer {
+    /* Điều chỉnh kích thước canvas */
+    max-width: 100%;
+    margin: 10px auto;
+}
+
+.print_setting .page_control span {
+    font-size: 14px;
+    color: #555;
+}

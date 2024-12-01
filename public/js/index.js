@@ -7,6 +7,20 @@ document.addEventListener('DOMContentLoaded', function () {
     const form = document.querySelector('#login-form');
     const submitButton = document.querySelector('input[type="submit"]');
 
+    document.getElementById("print-now-btn").addEventListener('click', async function (event) {
+        // Check if the user is logged in
+        const res = await fetch('/getToken', {
+            method: 'GET',
+            credentials: 'include'
+        });
+
+        if (res.status === 401) {
+            alert('Bạn cần đăng nhập để tiếp tục.');
+        } else {
+            window.location.href = '/print';
+        }
+    });
+
     submitButton.addEventListener('click', async function (event) {
         event.preventDefault();  // Prevent the default form submission
 
@@ -55,6 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
 document.getElementById("account").addEventListener("click", async function () {
     try {
         const res = await fetch('/getToken', {

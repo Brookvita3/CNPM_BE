@@ -1,50 +1,58 @@
 const userRepository = require('../repositories/userRepository');
-const printerRepository = require('../repositories/printerRepository');
-const Printer = require('../models/print');
+const printRepository = require('../repositories/printRepository');
+const print = require('../models/print');
+
+
+// [POST] admin/add/user
+module.exports.addUser = async (req, res) => {
+    try {
+        const { username, email, password, years, role } = req.body;
+
+        const existingUser = await userRepository.findByEmail(email);
+        if (existingUser) throw new Error('Email already in use');
+
+        const user = {
+            username,
+            email,
+            password,
+            years,
+            role,
+        };
+
+        await UserRepository.create(user);
+        res.render("admin/add_user");
+        // res.status(200).json({ message: 'User added successfully', username });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+        next(error);
+    }
+};
 
 
 
-
-
-// // [POST] admin/add/user
-// module.exports.addUser = async (req, res) => {
-//     try {
-//         const { username, email, password, years, role } = req.body;
-
-//         const existingUser = await userRepository.findByEmail(email);
-//         if (existingUser) throw new Error('Email already in use');
-
-//         const user = {
-//             username,
-//             email,
-//             password,
-//             years,
-//             role,
-//         };
-
-//         await UserRepository.create(user);
-//         res.status(200).json({ message: 'User added successfully', username });
-//     } catch (error) {
-//         res.status(400).json({ message: error.message });
-//         next(error);
-//     }
-// };
-
-
-
+module.exports.getindexPage = async (req, res) => {
+    try {
+        const printer = await this.getAllPrinters();
+        res.render("admin/admin_manage_printer", {
+            printers: printer,
+        });
+    } catch (error) {
+        console.error(error);
+    }
+}
 
 
 
 // [POST] admin/add/printer
 module.exports.addPrinter = async (req, res, next) => {
     try {
-        const { name, location, status, remaining_page } = req.body;
+        const { name, location } = req.body;
 
-        const existingPrinter = await printerRepository.findByName(name);
+        const existingPrinter = await printRepository.findByName(name);
         if (existingPrinter) {
             throw new Error('Printer already exists');
         }
-        printerRepository.create({ name, location, status });
+        await print.create({ Name: name, Location: location });
         res.status(200).json({ message: 'Printer added successfully' });
 
     } catch (error) {
@@ -156,17 +164,6 @@ module.exports.logout = (req, res, next) => {
 //     } catch (error) {
 //         console.error(error);
 //         res.status(500).json({ message: 'Internal server error' });
-//     }
-// }
-
-// module.exports.getindexPage = async (req, res) => {
-//     try {
-//         const printer = await this.getAllPrinters();
-//         res.render("admin/admin_manage_printer", {
-//             printers: printer,
-//         });
-//     } catch (error) {
-//         console.error(error);
 //     }
 // }
 

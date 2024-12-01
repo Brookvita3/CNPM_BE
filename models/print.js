@@ -1,9 +1,13 @@
 const mongoose = require('mongoose');
+const AutoIncrement = require('mongoose-sequence')(mongoose);
+
 const printerSchema = new mongoose.Schema({
-    id: Number,
+    id: { type: Number, unique: true },
     Name: String,
     Location: String,
-    status: String,
-    remaining_page: Number  
+    status: { type: String, default: 'On' }
 });
-module.exports = mongoose.model('printerass', printerSchema,'printer');
+
+printerSchema.plugin(AutoIncrement, { inc_field: 'id' });
+
+module.exports = mongoose.model('printerass', printerSchema, 'printer');

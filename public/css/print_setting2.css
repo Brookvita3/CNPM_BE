@@ -7,7 +7,7 @@
 }
 .banner{
     width: 100%;
-    height: 150vh;
+    height: 200vh;
     background-image: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url(../image/Background3.jpg);
     background-size: cover;
     background-position: center;
@@ -263,11 +263,11 @@ td {
     flex: 2;
     min-height: 50vh;
     min-width: 70vh;
-    backdrop-filter: blur(10px);
     margin: 0 25px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     display: flex;
     flex-direction: column;
+    background-color: #222;
 }
 
 .setting-selection {
@@ -650,10 +650,45 @@ select {
     color: #555; /* Màu chữ dịu nhẹ */
   }
   
-  #pdf-renderer {
-    width: 100%; /* Chiều rộng canvas */
-    max-width: 100%; /* Giới hạn tối đa chiều rộng */
-    margin: 10px auto;
-    border: 1px solid #ccc; /* Viền nhẹ */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  #pdf-render {
+    width: 100%; /* Giảm chiều rộng xuống 50% */
+    height: 100%; /* Tự động điều chỉnh chiều cao theo tỷ lệ */
+    margin: 10px auto; /* Canh giữa nội dung */
+    border: 1px solid #ccc; /* Thêm viền nhẹ để phân biệt */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+    transform: scale(1); 
+    transform-origin: center; /* Giữ tỷ lệ thu nhỏ từ trung tâm */
   }
+  .print_setting {
+    display: block;
+    width: 20%;
+    max-width: 800px; /* Kích thước tối đa mặc định */
+    margin: 0 auto;
+}
+.print_setting {
+  display: block;
+  margin: 0 auto;
+  transition: all 0.3s ease; /* Hiệu ứng mượt khi thay đổi */
+}
+
+.print_setting.landscape {
+  width: 90%; /* Rộng hơn về chiều ngang */
+  height: auto;
+  max-width: none; /* Không giới hạn chiều rộng */
+  background-color: #f0f0f0; /* Màu kiểm tra */
+}
+
+
+.print_setting.portrait {
+  display: block;
+  width: 20%;
+  max-width: 800px; /* Kích thước tối đa mặc định */
+  margin: 0 auto;
+}
+
+
+
+.print_setting .page_control span {
+    font-size: 14px;
+    color: #555;
+}

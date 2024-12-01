@@ -363,3 +363,19 @@ select {
 #submitButton:hover {
     background-color: #465564; /* Darker green on hover */
 }
+.print_setting {
+    display: block;
+    width: 100%;
+    max-width: 800px; /* Kích thước tối đa mặc định */
+    margin: 0 auto;
+}
+
+.print_setting.landscape {
+    transform: rotate(-90deg);
+    background-color: #f0f0f0; /* Chỉ để kiểm tra */
+}
+
+.print_setting.portrait {
+    transform: none;
+    background-color: #ffffff; /* Chỉ để kiểm tra */
+}
