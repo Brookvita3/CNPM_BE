@@ -1,6 +1,6 @@
 const userRepository = require('../repositories/userRepository');
 const printRepository = require('../repositories/printRepository');
-const print = require('../models/print');
+const printHistoryRepository = require('../repositories/printHistoryRepository');
 
 
 // [POST] admin/add/user
@@ -29,17 +29,35 @@ module.exports.addUser = async (req, res, next) => {
 };
 
 
-
-module.exports.getindexPage = async (req, res) => {
+// [PATCH] admin/change/printer
+module.exports.changePrinter = async (req, res) => {
     try {
-        const printer = await this.getAllPrinters();
-        res.render("admin/admin_manage_printer", {
-            printers: printer,
-        });
+        const { name, newName, newLocation, newStatus } = req.body;
+        if (!['On', 'Off'].includes(newStatus)) {
+            return res.status(400).json({ message: 'Trạng thái không hợp lệ' });
+        }
+        const printer = await printRepository.findByName(name);
+        if (!printer) {
+            return res.status(404).json({ message: 'Printer not found' });
+        }
+        const updates = {};
+        if (newName) updates.name = newName;
+        if (newLocation) updates.location = newLocation;
+        if (newStatus) updates.status = newStatus;
+
+        const updatedPrinter = await printRepository.updateOneByName(name, updates);
+        if (!updatedPrinter) {
+            throw new Error('Failed to update printer');
+        }
+        res.status(200).json({ message: 'Status updated successfully', printer: updatedPrinter });
     } catch (error) {
         console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
     }
 }
+
+
+
 
 
 
@@ -52,7 +70,7 @@ module.exports.addPrinter = async (req, res, next) => {
         if (existingPrinter) {
             throw new Error('Printer already exists');
         }
-        await print.create({ Name: name, Location: location });
+        await printRepository.create({ Name: name, Location: location });
         res.status(200).json({ message: 'Printer added successfully' });
 
     } catch (error) {
@@ -70,7 +88,6 @@ module.exports.addPrintersindex = async (req, res) => {
     }
 }
 
-
 module.exports.logout = (req, res, next) => {
     res
         .clearCookie('refreshToken')
@@ -83,6 +100,54 @@ module.exports.logout = (req, res, next) => {
 module.exports.addUserindex = async (req, res) => {
     res.render("admin/add_user");
 }
+
+module.exports.getindexPage = async (req, res) => {
+    try {
+        const printer = await this.getAllPrinters();
+        res.render("admin/admin_manage_printer", {
+            printers: printer,
+        });
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+
+
+// [GET] admin/get/printer_history_by_name
+module.exports.getPrinterHistoryByName = async (req, res, next) => {
+    const printer_history = await printHistoryRepository.findAll();
+    console.log(printer_history);
+    if (!printer_history) {
+        throw new Error('Printer not found');
+    }
+    try {
+        // const printerName = req.query.printerName;
+        const printer = await printRepository.findAll();
+        res.render("admin/admin_manage_printer", {
+            printer_history: printer_history,
+            printers: printer,
+        });
+    } catch (error) {
+        console.log(error);
+        next();
+    }
+}
+
+
+
+
+
+// module.exports.getAllPrinters = async (req, res) => {
+//     try {
+//         const printers = await printerUseCase.getAllPrinters();
+//         return printers;
+//     } catch (error) {
+//         console.log(error);
+//         return res.status(500).json({ message: 'Lỗi:', error: error.message });
+//     }
+// }
+
 
 
 // // [DELETE] admin/delete/printer
@@ -104,16 +169,6 @@ module.exports.addUserindex = async (req, res) => {
 //     }
 // };
 
-// // [GET] admin/get/printers
-// module.exports.getAllPrinters = async (req, res) => {
-//     try {
-//         const printers = await printerUseCase.getAllPrinters();
-//         return printers;
-//     } catch (error) {
-//         console.log(error);
-//         return res.status(500).json({ message: 'Lỗi:', error: error.message });
-//     }
-// }
 
 // // [GET] admin/get/printer_history
 
@@ -134,20 +189,7 @@ module.exports.addUserindex = async (req, res) => {
 //     }
 // }
 
-// // [GET] admin/get/printer_history_by_name
-// module.exports.getPrinterHistoryByName = async (req, res) => {
-//     try {
-//         const printerName = req.query.printerName;
-//         const printerHistory = await printerUseCase.getPrinterHistory(printerName);
-//         const printer = await this.getAllPrinters();
-//         res.render("admin/admin_manage_printer", {
-//             printer_history: printerHistory,
-//             printers: printer,
-//         });
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }
+
 
 // // [PATCH] admin/change/printer
 
